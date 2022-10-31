@@ -10,10 +10,13 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
+      - run: 
+          name: "create workspace"
+          command: mkdir -p /tmp/workspace
       - run:
           name: "echo to a file in a workspace"
           command: 
-            echo "text to output here" > output.txt
+            echo "text to output here" > /tmp/workspace/output.txt
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
