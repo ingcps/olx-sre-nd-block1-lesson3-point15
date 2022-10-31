@@ -4,6 +4,9 @@ workflows:
   olx-sre-nd-block1-lesson3-point15-sharing-files:
     jobs:
       - save_hello_world_output
+      - print_output_file:
+          requires:
+            - save_hello_world_output      
 jobs:
   save_hello_world_output:
     docker:
@@ -16,6 +19,10 @@ jobs:
           name: "echo to a file in a workspace"
           command: 
             echo "text to output here" > /tmp/workspace/output.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - output.txt
   print_output_file:
     docker:
       - image: cimg/base:stable    
